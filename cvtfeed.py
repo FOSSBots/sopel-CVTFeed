@@ -72,10 +72,8 @@ def manage_pattern(bot, trigger):
         'huh': 'I could not figure out what you wanted to do.',
     }
 
-    strings = {tools.Identifier(string)
-                  for string in bot.config.cvtfeed.stringpatterns if string != ''}
-    regexes = {tools.Identifier(regex)
-                  for regex in bot.config.cvtfeed.regexpatterns if regex != ''}
+    strings = {tools.Identifier(string) for string in bot.config.cvtfeed.stringpatterns if string != ''}
+    regexes = {tools.Identifier(regex) for regex in bot.config.cvtfeed.regexpatterns if regex != ''}
     text = trigger.group().split()
 
     if len(text) == 3 and text[1] == 'list':
