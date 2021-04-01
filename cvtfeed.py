@@ -41,11 +41,11 @@ def configure(config):
 def match_items(bot, trigger):
     """Relay items if they match configured strings or regex patterns."""
     if trigger.account == bot.config.cvtfeed.feed_account and trigger.sender == bot.config.cvtfeed.feed_channel:
-        if any(re.match(regex, trigger.group()) for regex in bot.config.cvtfeed.regexpatterns):
+        if any(re.match(regex, trigger.group(), re.IGNORECASE) for regex in bot.config.cvtfeed.regexpatterns):
             for channel in bot.config.cvtfeed.destination_channels:
                 bot.say(trigger.group(), channel)
             return
-        elif any(string in trigger.group() for string in bot.config.cvtfeed.stringpatterns):
+        elif any(string.lower() in trigger.group().lower() for string in bot.config.cvtfeed.stringpatterns):
             for channel in bot.config.cvtfeed.destination_channels:
                 bot.say(trigger.group(), channel)
             return
