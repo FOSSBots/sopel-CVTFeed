@@ -54,9 +54,9 @@ def match_items(bot, trigger):
 
 
 @commands('cvtpattern')
-@example('.cvtpattern add/del string (string)')
-@example('.cvtpattern add/del regex (regex)')
-@example('.cvtpattern list string/regex')
+@example('.cvtpattern add/del string (string)', user_help=True)
+@example('.cvtpattern add/del regex (regex)', user_help=True)
+@example('.cvtpattern list string/regex', user_help=True)
 @require_admin('Patterns can only be managed by admins.')
 def manage_pattern(bot, trigger):
     """Manage cvt feed patterns."""
@@ -131,7 +131,7 @@ def manage_pattern(bot, trigger):
 
 
 @commands('cvtfeed')
-@example('.cvtfeed on/off')
+@example('.cvtfeed on/off', user_help=True)
 @require_admin('The feed can only be enabled/disabled by admins.')
 def manage_channel(bot, trigger):
     """Turn the cvt feed on or off for the current channel."""
