@@ -3,7 +3,6 @@
 import re
 import sys
 
-from sopel import plugin
 from sopel import tools
 from sopel.config.types import ListAttribute, StaticSection, ValidatedAttribute
 from sopel.module import commands, example, require_admin, require_chanmsg, rule
@@ -55,9 +54,9 @@ def match_items(bot, trigger):
 
 
 @commands('cvtpattern')
-@plugin.example('.cvtpattern add/del string (string)', user_help=True)
-@plugin.example('.cvtpattern add/del regex (regex)', user_help=True)
-@plugin.example('.cvtpattern list string/regex', user_help=True)
+@example('.cvtpattern add/del string (string)')
+@example('.cvtpattern add/del regex (regex)')
+@example('.cvtpattern list string/regex')
 @require_admin('Patterns can only be managed by admins.')
 def manage_pattern(bot, trigger):
     """Manage cvt feed patterns."""
@@ -132,7 +131,7 @@ def manage_pattern(bot, trigger):
 
 
 @commands('cvtfeed')
-@plugin.example('.cvtfeed on/off', user_help=True)
+@example('.cvtfeed on/off')
 @require_admin('The feed can only be enabled/disabled by admins.')
 def manage_channel(bot, trigger):
     """Turn the cvt feed on or off for the current channel."""
