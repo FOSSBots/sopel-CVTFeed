@@ -137,17 +137,20 @@ def manage_pattern(bot, trigger):
 def manage_channel(bot, trigger):
     """Turn the cvt feed on or off for the current channel."""
     text = trigger.group().split()
+    channels = {tools.Identifier(channel) for channel in bot.config.cvtfeed.destination_channels if channel != ''}
     if text[1] == 'on':
         if trigger.sender in bot.config.cvtfeed.destination_channels:
             bot.say('The feed is already enabled for this channel')
         else:
-            bot.config.cvtfeed.destination_channels.add(trigger.sender)
+            channels.add(trigger.sender)
+            bot.config.cvtfeed.destination_channels = channels
             bot.config.save()
             bot.say('Successfully enabled the feed for this channel')
     elif text[1] == 'off':
         if trigger.sender not in bot.config.cvtfeed.destination_channels:
             bot.say('The feed is already disabled for this channel')
         else:
-            bot.config.cvtfeed.destination_channels.remove(trigger.sender)
+            channels.remove(tools.Identifier(trigger.sender))
+            bot.config.cvtfeed.destination_channels = [unicode(c) for c in channels]
             bot.config.save()
             bot.say('Successfully disabled the feed for this channel')
