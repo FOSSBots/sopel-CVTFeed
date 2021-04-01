@@ -1,12 +1,12 @@
 """cvtfeed.py - Miraheze CVT Feed Plugin."""
 
 import re
+import sys
 
 from sopel import plugin
-from sopel.config.types import ListAttribute, StaticSection, ValidatedAttribute
 from sopel import tools
+from sopel.config.types import ListAttribute, StaticSection, ValidatedAttribute
 from sopel.module import commands, example, require_admin, require_chanmsg, rule
-import sys
 
 if sys.version_info.major >= 3:
     unicode = str
@@ -14,6 +14,7 @@ if sys.version_info.major >= 3:
 
 class CVTFeedSection(StaticSection):
     """Create configuration for Sopel."""
+
     stringpatterns = ListAttribute('stringpatterns', str)
     regexpatterns = ListAttribute('regexpatterns', str)
     destination_channels = ListAttribute('destination_channels', str)
@@ -68,13 +69,13 @@ def manage_pattern(bot, trigger):
         'invalid': 'Invalid format for %s a pattern. Try: .cvtpattern add (string|regex) sopel',
         'invalid_display': 'Invalid input for displaying patterns.',
         'nonelisted': 'No %s listed in the patterns list.',
-        'huh': "I could not figure out what you wanted to do.",
+        'huh': 'I could not figure out what you wanted to do.',
     }
 
-    strings = set(tools.Identifier(string)
-                  for string in bot.config.cvtfeed.stringpatterns if string != '')
-    regexes = set(tools.Identifier(regex)
-                  for regex in bot.config.cvtfeed.regexpatterns if regex != '')
+    strings = {tools.Identifier(string)
+                  for string in bot.config.cvtfeed.stringpatterns if string != ''}
+    regexes = {tools.Identifier(regex)
+                  for regex in bot.config.cvtfeed.regexpatterns if regex != ''}
     text = trigger.group().split()
 
     if len(text) == 3 and text[1] == 'list':
@@ -138,14 +139,14 @@ def manage_pattern(bot, trigger):
 def manage_channel(bot, trigger):
     """Turn the cvt feed on or off for the current channel."""
     text = trigger.group().split()
-    if text[1] == "on":
+    if text[1] == 'on':
         if trigger.sender in bot.config.cvtfeed.destination_channels:
             bot.say('The feed is already enabled for this channel')
         else:
             bot.config.cvtfeed.destination_channels.add(trigger.sender)
             bot.config.save()
             bot.say('Successfully enabled the feed for this channel')
-    elif text[1] == "off":
+    elif text[1] == 'off':
         if trigger.sender not in bot.config.cvtfeed.destination_channels:
             bot.say('The feed is already disabled for this channel')
         else:
