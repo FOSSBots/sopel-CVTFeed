@@ -19,7 +19,7 @@ jobs:
           python-version: ${{ matrix.python }} 
       - name: Install packages
         run: |
-          pip install -R dev-requirements.txt
+          pip install -r dev-requirements.txt
       - name: Run tests
         run: |
           flake8 cvtfeed.py --ignore E402,F401,W503,E722 --max-line-length 300
