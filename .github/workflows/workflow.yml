@@ -1,0 +1,25 @@
+n:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        python: ['3.6', '3.7', '3.8', '3.8-dev', '3.9', '3.9-dev', '3.10-dev']
+        os: ['ubuntu-latest', 'macos-latest']
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+      - name: Python ${{ matrix.python }} on ${{ matrix.os }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python }} 
+      - name: Install packages
+        run: |
+          pip install flake8
+      - name: Run tests
+        run: |
+          flake8 Sygnal.py --ignore E402,F401,W503,E722 --max-line-length 300
