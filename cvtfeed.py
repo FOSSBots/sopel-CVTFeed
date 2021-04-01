@@ -1,17 +1,18 @@
-from sopel.config.types import StaticSection, ValidatedAttribute, ListAttribute
-from sopel.module import commands, example, rule, require_chanmsg, require_admin
-from sopel import tools
-from sopel import plugin
-import sys
-import re
-
-if sys.version_info.major >= 3:
-    unicode = str
-
-
 """
 cvtfeed.py - Miraheze CVT Feed Plugin
 """
+
+
+from sopel.config.types import ListAttribute, StaticSection, ValidatedAttribute
+from sopel import plugin
+from sopel import tools
+from sopel.module import commands, example, require_admin, require_chanmsg, rule
+
+import re
+import sys
+
+if sys.version_info.major >= 3:
+    unicode = str
 
 
 class CVTFeedSection(StaticSection):
