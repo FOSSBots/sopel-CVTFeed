@@ -5,7 +5,7 @@ import sys
 
 from sopel import tools
 from sopel.config.types import ListAttribute, StaticSection, ValidatedAttribute
-from sopel.module import commands, example, require_admin, require_chanmsg, rule
+from sopel.module import commands, example, require_admin, require_chanmsg, rule, unblockable
 
 if sys.version_info.major >= 3:
     unicode = str
@@ -38,6 +38,7 @@ def configure(config):
 
 @rule('.*')
 @require_chanmsg
+@unblockable
 def match_items(bot, trigger):
     """Relay items if they match configured strings or regex patterns."""
     if trigger.account == bot.config.cvtfeed.feed_account and trigger.sender == bot.config.cvtfeed.feed_channel:
