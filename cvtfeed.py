@@ -50,6 +50,9 @@ def match_items(bot, trigger):
             for channel in bot.config.cvtfeed.destination_channels:
                 bot.say(trigger.group(), channel)
             return
+        elif ':Log/interwiki'.lower() in trigger.group().lower():
+            bot.say(trigger.group(), '#miraheze-interwiki-feed')
+            return
         return
     return
 
